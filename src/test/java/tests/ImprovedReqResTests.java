@@ -68,7 +68,7 @@ public class ImprovedReqResTests {
                 .extract().as(ApiUsersResponseModel.class)
         );
 
-        step("Check the response", () -> {
+        step("Check the response ('name' must be 'morpheus'; 'job' must be 'leader')", () -> {
                     assertEquals("morpheus", response.getName());
                     assertEquals("leader", response.getJob());
                 }
@@ -113,7 +113,7 @@ public class ImprovedReqResTests {
                 .extract().as(ApiUsersByIdResponseModel.class)
         );
 
-        step("Check the response", () -> {
+        step("Check the response (the user name must be Janet Weaver)", () -> {
                     assertEquals("Janet", response.getData().getFirst_name());
                     assertEquals("Weaver", response.getData().getLast_name());
                 }
@@ -194,7 +194,7 @@ public class ImprovedReqResTests {
                 .extract().as(ApiUnknownResponseModel.class)
         );
 
-        step("Check the response", () -> {
+        step("Check the response ('data' must contain 6 items)", () -> {
                     assertEquals(6, response.getData().size());
                 }
         );
@@ -220,7 +220,7 @@ public class ImprovedReqResTests {
                 .extract().as(ApiUnknownResponseModel.class)
         );
 
-        step("Check the response", () -> {
+        step("Check the response ('data' must include colors #98B2D1, #BF1932, and #53B0AE)", () -> {
                     List<String> targetColorList = new ArrayList<>();
                     for (int i = 0; i < response.getData().size(); i++) {
                         targetColorList.add(response.getData().get(i).getColor());
