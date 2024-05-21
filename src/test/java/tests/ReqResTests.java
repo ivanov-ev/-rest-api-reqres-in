@@ -1,20 +1,25 @@
+package tests;
+
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.*;
 
+@Tag("simple_tests")
 public class ReqResTests {
 
     @BeforeAll
     public static void configureRestAssured() {
         RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
     }
 
     @Test
-    void CreateUserTest() {
+    void createUserTest() {
         /*
         1. Perform a POST request to https://reqres.in/api/users with the JSON body: {"name":"morpheus", "job":"leader"}
         2. Get the response:
@@ -39,7 +44,7 @@ public class ReqResTests {
                 .log().body()
 
         .when()
-                .post("/api/users")
+                .post("/users")
 
         .then()
                 .log().status()
@@ -50,7 +55,7 @@ public class ReqResTests {
     }
 
     @Test
-    void GetUserTest() {
+    void getUserTest() {
         /*
         1. Perform a GET request to https://reqres.in/api/users/{id}, where {id} = 2
         2. Get the response:
@@ -79,7 +84,7 @@ public class ReqResTests {
                 .log().uri()
 
         .when()
-                .get("/api/users/{id}", id)
+                .get("/users/{id}", id)
 
         .then()
                 .log().status()
@@ -91,7 +96,7 @@ public class ReqResTests {
 
 
     @Test
-    void CountItemsInDataElementTest() {
+    void countItemsInDataElementTest() {
         /*
         1. Perform a GET request to https://reqres.in/api/unknown
         2. Get the response:
@@ -156,7 +161,7 @@ public class ReqResTests {
                 .log().uri()
 
         .when()
-                .get("api/unknown")
+                .get("/unknown")
 
         .then()
                 .log().body()
@@ -164,7 +169,7 @@ public class ReqResTests {
     }
 
     @Test
-    void CheckColorInDataElementTest() {
+    void checkColorInDataElementTest() {
         /*
         1. Perform a GET request to https://reqres.in/api/unknown
         2. Get the response
@@ -175,7 +180,7 @@ public class ReqResTests {
                 .log().uri()
 
         .when()
-                .get("api/unknown")
+                .get("/unknown")
 
         .then()
                 .log().body()
@@ -183,7 +188,7 @@ public class ReqResTests {
     }
 
     @Test
-    void ResponseTimeTest() {
+    void responseTimeTest() {
         /*
         1. Perform a GET request to https://reqres.in/api/users?delay=3
         2. Get the response
@@ -195,7 +200,7 @@ public class ReqResTests {
                 .log().uri()
 
         .when()
-                .get("api/users?delay=3")
+                .get("/users?delay=3")
 
         .then()
                 .time(lessThan(5000L));
